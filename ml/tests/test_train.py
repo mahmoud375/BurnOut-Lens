@@ -22,6 +22,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import xgboost as xgb
+
 from src import config
 from src.train import (
     load_data,
@@ -134,7 +135,7 @@ class TestLoadData:
         df = _make_synthetic_raw_df(n=5)
         df.to_csv(csv, index=False)
         result = load_data(path=csv)
-        for col in config.RAW_FEATURE_COLUMNS + [config.TARGET_COL]:
+        for col in [*config.RAW_FEATURE_COLUMNS, config.TARGET_COL]:
             assert col in result.columns
 
 

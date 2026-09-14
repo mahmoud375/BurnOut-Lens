@@ -26,7 +26,7 @@ CORS_ORIGINS = [o.strip() for o in _cors_origins_env.split(",") if o.strip()]
 app = FastAPI(
     title="BurnOut Lens API",
     description=(
-        "Predicts employee burnout risk (0–10) from 9 work and lifestyle "
+        "Predicts employee burnout risk (0-10) from 9 work and lifestyle "
         "factors using an XGBoost model, with SHAP-based explanations of "
         "which features drove each prediction."
     ),

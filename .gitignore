@@ -34,6 +34,7 @@ ml/data/processed/*
 
 ml/models/*
 !ml/models/.gitkeep
+!ml/models/*.json
 
 ml/reports/*
 !ml/reports/.gitkeep

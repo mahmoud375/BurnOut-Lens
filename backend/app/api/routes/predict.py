@@ -17,7 +17,7 @@ router = APIRouter()
     response_model=BurnoutResponse,
     summary="Predict burnout score",
     description=(
-        "Submit employee feature data and receive a burnout score (0–10), "
+        "Submit employee feature data and receive a burnout score (0-10), "
         "a severity label (Low / Moderate / High / Severe), and a SHAP-based "
         "explanation of which factors drove the prediction."
     ),
@@ -32,7 +32,7 @@ def predict(request: BurnoutRequest) -> BurnoutResponse:
         return predict_burnout(request)
     except RuntimeError as exc:
         # Model not loaded — surface clearly rather than a generic 500
-        logger.error("Model unavailable: %s", exc)
+        logger.exception("Model unavailable")
         raise HTTPException(status_code=503, detail=str(exc))
     except Exception:
         logger.exception("Unexpected error during prediction")

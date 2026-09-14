@@ -217,7 +217,7 @@ def save_processed_data(
     """Persist the four data splits as Parquet files.
 
     Parquet is preferred over CSV because it preserves dtypes exactly, is
-    ~5–10× faster to read/write for columnar data, and is natively supported
+    ~5-10x faster to read/write for columnar data, and is natively supported
     by pandas, PyArrow, and most data-warehouse tools.
 
     ``y_train`` and ``y_test`` are ``pd.Series`` objects.  Parquet does not
@@ -281,7 +281,7 @@ def main() -> None:
     print(sep)
     print("\n[1/8] Loading raw data …")
     df = load_data()
-    print(f"      {len(df):,} rows × {len(df.columns)} columns loaded from:\n"
+    print(f"      {len(df):,} rows x {len(df.columns)} columns loaded from:\n"
           f"      {config.RAW_DATA_PATH}")
 
     # ── 2. Split ──────────────────────────────────────────────────────────────

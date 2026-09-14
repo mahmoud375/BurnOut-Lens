@@ -200,7 +200,7 @@ def plot_residuals(
     y_pred: np.ndarray,
     save_path: str | Path | None = None,
 ) -> None:
-    """Scatter plot of residuals (actual − predicted) vs. actual values.
+    """Scatter plot of residuals (actual - predicted) vs. actual values.
 
     A horizontal line at residual = 0 is drawn as reference.  Ideally
     residuals should be randomly scattered around zero with no visible pattern.
@@ -227,7 +227,7 @@ def plot_residuals(
                label="Zero residual")
 
     ax.set_xlabel("Actual Burnout Score", fontsize=11)
-    ax.set_ylabel("Residual (Actual − Predicted)", fontsize=11)
+    ax.set_ylabel("Residual (Actual - Predicted)", fontsize=11)
     ax.set_title("Residual Plot", fontsize=13)
     ax.legend(fontsize=9)
     fig.tight_layout()

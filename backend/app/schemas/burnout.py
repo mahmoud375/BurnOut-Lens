@@ -28,42 +28,42 @@ class BurnoutRequest(BaseModel):
     work_hours_per_week: float = Field(
         ge=_B["work_hours_per_week"][0],
         le=_B["work_hours_per_week"][1],
-        description="Average number of hours worked per week (20–90).",
+        description="Average number of hours worked per week (20-90).",
     )
     meetings_per_day: float = Field(
         ge=_B["meetings_per_day"][0],
         le=_B["meetings_per_day"][1],
-        description="Average number of meetings attended per day (0–15).",
+        description="Average number of meetings attended per day (0-15).",
     )
     sleep_hours_per_night: float = Field(
         ge=_B["sleep_hours_per_night"][0],
         le=_B["sleep_hours_per_night"][1],
-        description="Average hours of sleep per night (2–12).",
+        description="Average hours of sleep per night (2-12).",
     )
     exercise_days_per_week: float = Field(
         ge=_B["exercise_days_per_week"][0],
         le=_B["exercise_days_per_week"][1],
-        description="Number of days per week with physical exercise (0–7).",
+        description="Number of days per week with physical exercise (0-7).",
     )
     vacation_days_taken: float = Field(
         ge=_B["vacation_days_taken"][0],
         le=_B["vacation_days_taken"][1],
-        description="Number of vacation days taken in the past year (0–30).",
+        description="Number of vacation days taken in the past year (0-30).",
     )
     social_support_score: float = Field(
         ge=_B["social_support_score"][0],
         le=_B["social_support_score"][1],
-        description="Perceived social support from colleagues/friends (1–10).",
+        description="Perceived social support from colleagues/friends (1-10).",
     )
     manager_support_score: float = Field(
         ge=_B["manager_support_score"][0],
         le=_B["manager_support_score"][1],
-        description="Perceived support from direct manager (1–10).",
+        description="Perceived support from direct manager (1-10).",
     )
     deadline_pressure_score: float = Field(
         ge=_B["deadline_pressure_score"][0],
         le=_B["deadline_pressure_score"][1],
-        description="Perceived pressure from deadlines (1–10).",
+        description="Perceived pressure from deadlines (1-10).",
     )
 
     model_config = {"json_schema_extra": {
@@ -103,7 +103,7 @@ class BurnoutResponse(BaseModel):
     burnout_level: Literal["Low", "Moderate", "High", "Severe"] = Field(
         description=(
             "Severity label derived from the score: "
-            "Low (<3.0), Moderate (3.0–5.5), High (5.5–7.5), Severe (≥7.5)."
+            "Low (<3.0), Moderate (3.0-5.5), High (5.5-7.5), Severe (≥7.5)."
         )
     )
     base_value: float = Field(

@@ -15,6 +15,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 import pytest
+
 from src import config
 from src.preprocessing import (
     clip_outliers,
@@ -58,7 +59,7 @@ class TestSelectRawFeatures:
     def test_keeps_exactly_raw_and_target_columns(self):
         df = _make_raw_df()
         result = select_raw_features(df, include_target=True)
-        expected_cols = config.RAW_FEATURE_COLUMNS + [config.TARGET_COL]
+        expected_cols = [*config.RAW_FEATURE_COLUMNS, config.TARGET_COL]
         assert list(result.columns) == expected_cols
 
     def test_excludes_target_when_requested(self):
@@ -117,13 +118,15 @@ class TestClipOutliers:
         df = _make_raw_df(work_hours_per_week=999.0)
         df_raw = select_raw_features(df, include_target=False)
         result = clip_outliers(df_raw)
-        assert result["work_hours_per_week"].iloc[0] == config.FEATURE_BOUNDS["work_hours_per_week"][1]
+        max_work_hours = config.FEATURE_BOUNDS["work_hours_per_week"][1]
+        assert result["work_hours_per_week"].iloc[0] == max_work_hours
 
     def test_values_below_lower_bound_are_clipped(self):
         df = _make_raw_df(sleep_hours_per_night=-5.0)
         df_raw = select_raw_features(df, include_target=False)
         result = clip_outliers(df_raw)
-        assert result["sleep_hours_per_night"].iloc[0] == config.FEATURE_BOUNDS["sleep_hours_per_night"][0]
+        min_sleep = config.FEATURE_BOUNDS["sleep_hours_per_night"][0]
+        assert result["sleep_hours_per_night"].iloc[0] == min_sleep
 
     def test_all_numeric_bounds_respected_on_extreme_inputs(self):
         extreme_low = _make_raw_df(
@@ -208,7 +211,8 @@ class TestEncodeSeniority:
         for _, row in result.iterrows():
             # We can recover the original level by reversing SENIORITY_ORDER
             reverse = {v: k for k, v in config.SENIORITY_ORDER.items()}
-            assert row["seniority_level_encoded"] == config.SENIORITY_ORDER[reverse[row["seniority_level_encoded"]]]
+            encoded_val = row["seniority_level_encoded"]
+            assert encoded_val == config.SENIORITY_ORDER[reverse[encoded_val]]
 
     def test_returns_a_copy(self):
         df = _make_raw_df()
@@ -226,7 +230,7 @@ class TestPreprocess:
     def test_output_columns_match_final_feature_columns_with_target(self):
         df = _make_raw_df()
         result = preprocess(df, include_target=True)
-        expected = config.FINAL_FEATURE_COLUMNS + [config.TARGET_COL]
+        expected = [*config.FINAL_FEATURE_COLUMNS, config.TARGET_COL]
         assert list(result.columns) == expected
 
     def test_output_columns_match_final_feature_columns_without_target(self):
@@ -237,7 +241,8 @@ class TestPreprocess:
     def test_outliers_are_clipped_in_pipeline(self):
         df = _make_raw_df(work_hours_per_week=9999.0)
         result = preprocess(df, include_target=False)
-        assert result["work_hours_per_week"].iloc[0] == config.FEATURE_BOUNDS["work_hours_per_week"][1]
+        max_work_hours = config.FEATURE_BOUNDS["work_hours_per_week"][1]
+        assert result["work_hours_per_week"].iloc[0] == max_work_hours
 
     def test_seniority_is_encoded_in_pipeline(self):
         df = _make_raw_df(seniority_level="Lead")
@@ -274,7 +279,7 @@ class TestPreprocess:
         df_multi = pd.concat(rows, ignore_index=True)
         result = preprocess(df_multi, include_target=True)
         assert len(result) == len(config.SENIORITY_ORDER)
-        assert list(result.columns) == config.FINAL_FEATURE_COLUMNS + [config.TARGET_COL]
+        assert list(result.columns) == [*config.FINAL_FEATURE_COLUMNS, config.TARGET_COL]
 
 
 # ---------------------------------------------------------------------------
