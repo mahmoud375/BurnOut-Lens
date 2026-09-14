@@ -3,15 +3,11 @@ name = "burnout-lens"
 version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
-    "fastapi>=0.141.1",
     "joblib>=1.6.0",
-    "matplotlib>=3.11.2",
     "numpy>=2.5.3",
     "pandas>=3.0.5",
-    "pydantic>=2.13.5",
-    "python-dotenv>=1.2.3",
     "scikit-learn>=1.9.1",
-    "uvicorn>=0.52.4",
+    "shap>=0.47.2",
     "xgboost>=3.4.1",
 ]
 
@@ -19,5 +15,20 @@ dependencies = [
 dev = [
     "ipykernel>=7.3.0",
     "matplotlib>=3.11.2",
+    "pytest>=8.4.0",
+    "pytest-cov>=6.2.1",
     "seaborn>=0.13.2",
 ]
+
+# ---------------------------------------------------------------------------
+# Pytest configuration
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+# Run from the ml/ directory so `from src import ...` resolves correctly.
+testpaths = ["tests"]
+pythonpath = ["."]          # adds ml/ to sys.path -> enables `from src import config`
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "notebooks/*"]
