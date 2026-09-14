@@ -1,0 +1,38 @@
+# ── Backend .dockerignore ──────────────────────────────────────────────────
+# Build context is the REPO ROOT (needed to COPY ml/ into the image).
+# Exclude everything we don't need to keep the context lean.
+
+# Python caches
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache/
+**/.mypy_cache/
+
+# Virtual environments (never copy host venvs into images)
+**/.venv/
+**/venv/
+
+# The large raw training CSV — not needed at runtime, only the trained model is
+ml/data/raw/*.csv
+ml/data/processed/
+
+# ML notebooks and reports are dev-only artefacts
+ml/notebooks/
+ml/reports/
+
+# Frontend — not part of the backend build
+frontend/
+
+# Git and editor noise
+.git/
+.gitignore
+**/.DS_Store
+
+# Secrets / local config
+**/.env
+**/.env.local
+
+# GitHub Actions (not needed in image)
+.github/

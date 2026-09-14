@@ -16,7 +16,8 @@ FROM python:3.12-slim
 # Keeps Python from buffering stdout/stderr (important for container logs)
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    MPLBACKEND=Agg
+    MPLBACKEND=Agg \
+    UV_HTTP_TIMEOUT=120
 
 WORKDIR /app
 
