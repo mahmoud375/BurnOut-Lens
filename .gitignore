@@ -35,6 +35,9 @@ ml/data/processed/*
 ml/models/*
 !ml/models/.gitkeep
 
+ml/reports/*
+!ml/reports/.gitkeep
+
 # ---------------------------------------------------------------------------
 # Environment variables / secrets
 # ---------------------------------------------------------------------------
