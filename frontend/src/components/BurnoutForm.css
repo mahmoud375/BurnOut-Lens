@@ -1,0 +1,85 @@
+/* BurnoutForm styles */
+
+.burnout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.form-field__value {
+  font-weight: 700;
+  color: #1565c0;
+  font-size: 0.95rem;
+  min-width: 2.5ch;
+  text-align: right;
+}
+
+.form-field select,
+.form-field input[type="range"] {
+  width: 100%;
+}
+
+.form-field select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.form-field select:focus {
+  outline: 2px solid #1565c0;
+  outline-offset: 1px;
+}
+
+.form-field input[type="range"] {
+  cursor: pointer;
+  accent-color: #1565c0;
+  height: 4px;
+}
+
+.form-field__range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #999;
+}
+
+/* Submit button */
+.submit-btn {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #1565c0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #0d47a1;
+}
+
+.submit-btn:disabled {
+  background: #90caf9;
+  cursor: not-allowed;
+}

@@ -1,0 +1,128 @@
+/* ResultPanel styles */
+
+.result-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Score card */
+.result-panel__score-card {
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.result-panel__score-number {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.result-panel__score-denom {
+  font-size: 1.4rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.result-panel__level-badge {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.3rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.result-panel__base-value {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  color: #777;
+}
+
+/* Explanation */
+.result-panel__section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.result-panel__section-subtitle {
+  font-size: 0.8rem;
+  color: #777;
+  margin-bottom: 0.75rem;
+}
+
+/* Contributions list */
+.contributions-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contribution-item__header {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 0.4rem;
+  align-items: baseline;
+  font-size: 0.82rem;
+  margin-bottom: 0.25rem;
+}
+
+.contribution-item__name {
+  font-weight: 600;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contribution-item__value {
+  color: #555;
+  font-variant-numeric: tabular-nums;
+}
+
+.contribution-item__direction {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.contribution-item__direction--increases {
+  color: #c62828;
+}
+
+.contribution-item__direction--decreases {
+  color: #2e7d32;
+}
+
+.contribution-item__shap {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.78rem;
+  color: #777;
+}
+
+/* Horizontal bar track */
+.contribution-item__bar-track {
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.contribution-item__bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.contribution-item__bar--increases {
+  background: #ef5350;
+}
+
+.contribution-item__bar--decreases {
+  background: #4caf50;
+}
