@@ -18,8 +18,28 @@ dev = [
     "matplotlib>=3.11.2",
     "pytest>=8.4.0",
     "pytest-cov>=6.2.1",
+    "ruff>=0.9.0",
     "seaborn>=0.13.2",
 ]
+
+# ---------------------------------------------------------------------------
+# Ruff linter configuration — enforced in CI via `ruff check .`
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+# E/W: pycodestyle, F: pyflakes, I: isort, RUF: ruff-specific, BLE: blind except,
+# TRY: exception handling best practices
+select = ["E", "W", "F", "I", "RUF", "BLE", "TRY"]
+# TRY401: logger.exception() already logs exc — flagged and fixed at source
+# TRY003: long messages in raise — reasonable for a small project
+ignore = ["TRY003"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests: assert is expected (pytest), magic numbers are fine in test data
+"tests/*" = ["S101", "PLR2004"]
+
 
 # ---------------------------------------------------------------------------
 # Pytest configuration

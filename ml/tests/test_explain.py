@@ -19,7 +19,6 @@ import pandas as pd
 import pytest
 import shap
 import xgboost as xgb
-
 from src import config
 from src.explain import (
     explain_batch,
@@ -27,7 +26,6 @@ from src.explain import (
     get_shap_explainer,
     plot_global_importance,
 )
-
 
 # ---------------------------------------------------------------------------
 # Session-scoped fixtures  (model trained once, reused across all tests)

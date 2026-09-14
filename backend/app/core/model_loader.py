@@ -20,8 +20,8 @@ import os
 os.environ.setdefault("MPLBACKEND", "Agg")  # must be before any matplotlib import
 
 import xgboost as xgb
-
 from src import explain as _explain
+
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -45,7 +45,7 @@ try:
     explainer = _ex
     logger.info("Model and explainer ready.")
 
-except Exception as exc:                       # pragma: no cover
+except Exception as exc:  # noqa: BLE001 — broad catch intentional: any model-load  # pragma: no cover
     logger.error("Failed to load model: %s", exc)
     # model/explainer remain None — /health will surface this clearly
     # rather than crashing the whole server at import time.

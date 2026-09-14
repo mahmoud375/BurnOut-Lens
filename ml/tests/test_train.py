@@ -16,14 +16,12 @@ Run with:
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import pytest
 import xgboost as xgb
-
 from src import config
 from src.train import (
     load_data,
@@ -32,7 +30,6 @@ from src.train import (
     split_data,
     train_model,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers & session-scoped fixtures

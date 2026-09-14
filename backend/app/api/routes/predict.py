@@ -34,6 +34,6 @@ def predict(request: BurnoutRequest) -> BurnoutResponse:
         # Model not loaded — surface clearly rather than a generic 500
         logger.error("Model unavailable: %s", exc)
         raise HTTPException(status_code=503, detail=str(exc))
-    except Exception as exc:
-        logger.exception("Unexpected error during prediction: %s", exc)
+    except Exception:
+        logger.exception("Unexpected error during prediction")
         raise HTTPException(status_code=500, detail="Internal prediction error.")

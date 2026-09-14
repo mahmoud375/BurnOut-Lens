@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing import Literal
 
 from pydantic import BaseModel, Field
-
 from src import config as ml_config
 
 # Convenience aliases so Field() calls below stay readable

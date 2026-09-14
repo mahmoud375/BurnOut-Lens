@@ -25,10 +25,10 @@ from . import config
 
 __all__ = [
     "clip_outliers",
-    "encode_seniority",
-    "select_raw_features",
-    "preprocess",
     "clip_prediction",
+    "encode_seniority",
+    "preprocess",
+    "select_raw_features",
 ]
 
 

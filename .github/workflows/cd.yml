@@ -1,0 +1,106 @@
+name: CD
+
+# Trigger: runs after CI completes successfully on the main branch.
+#
+# Pattern choice — workflow_run vs duplicating test jobs:
+#   workflow_run is used here because it cleanly expresses the dependency
+#   without duplicating test logic. The trade-off is that workflow_run only
+#   fires when CI runs on the *workflow's default branch* (main), which is
+#   exactly the semantics we want for CD: only deploy commits that landed on
+#   main via a PR that passed CI.
+#
+# ⚠️  IMPORTANT: For workflow_run to fire correctly, the "CI" workflow name
+#   in the `workflows:` list below must exactly match the `name:` field in
+#   ci.yml (currently "CI"). If you rename ci.yml's name, update it here too.
+on:
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types: [completed]
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Build and push both Docker images to Docker Hub.
+  #
+  # Requires two repository secrets (Settings → Secrets and variables → Actions):
+  #   DOCKERHUB_USERNAME — your Docker Hub username
+  #   DOCKERHUB_TOKEN    — a Docker Hub Access Token (not your password)
+  #
+  # Image names use ${{ secrets.DOCKERHUB_USERNAME }} so the username never
+  # appears hardcoded in any file. Set the secret once on GitHub, never here.
+  #
+  # Tags applied to every push:
+  #   latest          — always points to the most recent main build
+  #   <short-sha>     — immutable tag for rollback/audit (7-char git SHA)
+  # ---------------------------------------------------------------------------
+  docker-push:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+
+    # Only run if the triggering CI workflow actually succeeded.
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Check out the specific commit that CI ran on, not whatever HEAD
+          # is at the time this workflow starts (avoids a race condition where
+          # a second push lands on main between CI completing and CD starting).
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Compute the short SHA once and expose it as a step output so both
+      # build steps use an identical tag without re-running git.
+      - name: Compute short SHA
+        id: sha
+        run: echo "short=$(echo '${{ github.event.workflow_run.head_sha }}' | cut -c1-7)" >> "$GITHUB_OUTPUT"
+
+      # -----------------------------------------------------------------------
+      # Backend image
+      # Build context is repo root (.) so the Dockerfile can COPY both
+      # ml/ and backend/ — required because ml/ is an editable local dep.
+      # -----------------------------------------------------------------------
+      - name: Build & push backend
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: backend/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/burnout-lens-backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/burnout-lens-backend:${{ steps.sha.outputs.short }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # -----------------------------------------------------------------------
+      # Frontend image
+      # VITE_API_BASE_URL is baked into the JS bundle at build time. For the
+      # deployed image this must be the public-facing backend URL. Since that
+      # URL is deployment-specific (changes per environment/host), it is read
+      # from a secret rather than hardcoded.
+      #
+      # ⚠️  Add a third repository secret:
+      #   VITE_API_BASE_URL — e.g. http://your-server-ip:8000 or
+      #                        https://api.burnoutlens.example.com
+      # -----------------------------------------------------------------------
+      - name: Build & push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          file: frontend/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/burnout-lens-frontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/burnout-lens-frontend:${{ steps.sha.outputs.short }}
+          build-args: |
+            VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

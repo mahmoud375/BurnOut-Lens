@@ -44,6 +44,7 @@ from __future__ import annotations
 
 # ── Set headless backend BEFORE any pyplot / evaluate / explain imports ──────
 import os
+
 os.environ.setdefault("MPLBACKEND", "Agg")
 
 # ── Standard library ─────────────────────────────────────────────────────────
@@ -52,7 +53,6 @@ import time
 from pathlib import Path
 
 # ── Third-party ──────────────────────────────────────────────────────────────
-import numpy as np
 import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
@@ -60,16 +60,16 @@ from sklearn.model_selection import train_test_split
 # ── Project modules ──────────────────────────────────────────────────────────
 from . import config
 from .evaluate import evaluate_model, plot_actual_vs_predicted, plot_residuals
-from .explain import explain_batch, get_shap_explainer, plot_global_importance
+from .explain import get_shap_explainer, plot_global_importance
 from .preprocessing import clip_prediction, preprocess
 
 __all__ = [
     "load_data",
-    "split_data",
-    "train_model",
+    "main",
     "save_model",
     "save_processed_data",
-    "main",
+    "split_data",
+    "train_model",
 ]
 
 # Default report directory: ml/reports/
@@ -350,7 +350,7 @@ def main() -> None:
     print(f"  R²   : {metrics['r2']:.4f}")
     print(f"  Time : {elapsed:.1f}s")
     print(sep)
-    print(f"\n  Artefacts written to:")
+    print("\n  Artefacts written to:")
     print(f"    Model   : {config.MODEL_PATH}")
     print(f"    Data    : {config.PROCESSED_DIR}/")
     print(f"    Reports : {_REPORTS_DIR}/")

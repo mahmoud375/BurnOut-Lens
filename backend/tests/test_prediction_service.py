@@ -7,16 +7,14 @@ logic rather than routing or serialisation issues.
 from __future__ import annotations
 
 import pytest
-
-from src import config as ml_config
-from app.schemas.burnout import BurnoutRequest
-from app.services.prediction_service import predict_burnout
 from app.core.config import (
+    BURNOUT_LEVEL_HIGH,
     BURNOUT_LEVEL_LOW,
     BURNOUT_LEVEL_MODERATE,
-    BURNOUT_LEVEL_HIGH,
 )
-
+from app.schemas.burnout import BurnoutRequest
+from app.services.prediction_service import predict_burnout
+from src import config as ml_config
 
 # ---------------------------------------------------------------------------
 # Fixtures

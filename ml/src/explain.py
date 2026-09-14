@@ -58,9 +58,9 @@ from . import config
 matplotlib.use("Agg")  # headless-safe; must be set before any pyplot import
 
 __all__ = [
-    "get_shap_explainer",
-    "explain_prediction",
     "explain_batch",
+    "explain_prediction",
+    "get_shap_explainer",
     "plot_global_importance",
 ]
 

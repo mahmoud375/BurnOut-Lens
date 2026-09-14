@@ -22,7 +22,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 # installed package location (not hardcoded to this machine).
 from src import config as ml_config
 
-
 # ---------------------------------------------------------------------------
 # Burnout level thresholds
 # ---------------------------------------------------------------------------

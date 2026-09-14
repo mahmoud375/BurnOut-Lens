@@ -11,16 +11,12 @@ Run with:
 from __future__ import annotations
 
 import math
-import tempfile
-from pathlib import Path
 from unittest.mock import MagicMock
 
 import numpy as np
 import pytest
-
 from src import config
 from src.evaluate import compute_metrics, evaluate_model
-
 
 # ---------------------------------------------------------------------------
 # Helpers

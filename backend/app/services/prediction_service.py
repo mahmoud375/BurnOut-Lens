@@ -9,13 +9,11 @@ zero benefit in a single-model API.
 from __future__ import annotations
 
 import pandas as pd
-
-from src import config as ml_config
-from src.preprocessing import clip_prediction, preprocess
 from src.explain import explain_prediction
+from src.preprocessing import clip_prediction, preprocess
 
-from app.core.config import score_to_level
 from app.core import model_loader
+from app.core.config import score_to_level
 from app.schemas.burnout import BurnoutRequest, BurnoutResponse, Contribution
 
 
