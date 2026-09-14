@@ -33,3 +33,9 @@ addopts = "-v --tb=short"
 [tool.coverage.run]
 source = ["src"]
 omit = ["tests/*", "notebooks/*"]
+
+# Tell uv/setuptools that packages live in ml/ (the project root), so
+# `src` is discovered as a package and `from src import config` works
+# correctly even when installed as an editable dep from backend/.
+[tool.setuptools.packages.find]
+where = ["."]

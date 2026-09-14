@@ -1,0 +1,27 @@
+[project]
+name = "burnout-lens-backend"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.7.0",
+    "burnout-lens",          # ml/ package — installed as editable local dep
+    "matplotlib>=3.11.2",
+]
+
+[tool.uv.sources]
+burnout-lens = { path = "../ml", editable = true }
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.0",         # required by FastAPI TestClient
+    "pytest>=8.4.0",
+    "pytest-cov>=6.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]           # adds backend/ to sys.path -> enables `from app import ...`
+addopts = "-v --tb=short"
