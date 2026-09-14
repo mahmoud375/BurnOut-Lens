@@ -1,0 +1,33 @@
+services:
+
+  # ── Backend: FastAPI + XGBoost + SHAP ──────────────────────────────────
+  backend:
+    build:
+      # Context is the REPO ROOT so the Dockerfile can COPY both backend/
+      # and ml/ (source + trained model) into the image.
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      # Allow requests from the frontend origin as seen by the browser.
+      # In production, replace with the real public frontend URL.
+      CORS_ORIGINS: "http://localhost:80,http://localhost"
+    restart: unless-stopped
+
+  # ── Frontend: React SPA served by nginx ────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # VITE_API_BASE_URL is baked into the JS bundle at build time.
+        # This MUST be the URL reachable from the end-user's BROWSER
+        # (i.e. the host-mapped backend address), NOT the Docker-internal
+        # service name — the browser runs outside the Docker network.
+        VITE_API_BASE_URL: "http://localhost:8000"
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

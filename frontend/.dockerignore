@@ -1,0 +1,10 @@
+# ── Frontend .dockerignore ─────────────────────────────────────────────────
+# Build context is frontend/ (set in docker-compose.yml)
+
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store

@@ -1,0 +1,13 @@
+# docker-compose.override.yml — local development overrides
+#
+# This file is intentionally minimal. The "keep it simple" directive applies
+# here too: the primary use case (running the full stack) is already served
+# by plain `docker compose up --build`. Hot-reload for the backend would
+# require mounting the source AND re-solving the editable ml/ dependency on
+# the host, which creates friction without adding much value — the backend
+# restarts fast enough from a rebuild. Hot-reload for the frontend is better
+# served by running `npm run dev` natively (outside Docker), not via a volume
+# mount into nginx (which doesn't support hot-reload anyway).
+#
+# Add real overrides here as the project grows (e.g. debug ports, mounted
+# secrets for staging, additional replicas for load testing).
