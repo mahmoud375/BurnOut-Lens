@@ -11,6 +11,25 @@ dependencies = [
     "matplotlib>=3.11.2",
 ]
 
+[tool.uv]
+# ---------------------------------------------------------------------------
+# Exclude heavy GPU/JIT transitive dependencies not needed for CPU inference.
+#
+# numba + llvmlite (~115MB combined): pulled in by shap 0.52 as hard deps,
+#   but only used by PartitionExplainer, ExactExplainer, and KernelExplainer.
+#   TreeExplainer (_tree.py) has zero numba imports — verified by grep.
+#   override-dependencies forcibly replaces the package's declared requirements
+#   with an unsatisfiable version, effectively removing them from the tree.
+#
+# nvidia-nccl-cu13 (~240MB): belt-and-suspenders exclusion. Already eliminated
+#   at source by using xgboost-cpu instead of xgboost in ml/pyproject.toml.
+# ---------------------------------------------------------------------------
+override-dependencies = [
+    "numba>=99999",
+    "llvmlite>=99999",
+    "nvidia-nccl-cu13>=99999",
+]
+
 [tool.uv.sources]
 burnout-lens = { path = "../ml", editable = true }
 

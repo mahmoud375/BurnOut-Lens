@@ -9,7 +9,7 @@ dependencies = [
     "scikit-learn>=1.9.1",
     "pyarrow>=18.0",
     "shap>=0.47.2",
-    "xgboost>=3.4.1",
+    "xgboost-cpu>=3.4.1",
 ]
 
 [dependency-groups]
