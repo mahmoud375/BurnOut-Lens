@@ -20,7 +20,10 @@ from app.api.routes import health, predict
 
 # CORS origins — defaults to Vite dev server; override via env var for prod
 # e.g. CORS_ORIGINS="https://burnoutlens.example.com"
-_cors_origins_env = os.environ.get("CORS_ORIGINS", "http://localhost:5173")
+_cors_origins_env = os.environ.get(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://68.210.99.220",
+)
 CORS_ORIGINS = [o.strip() for o in _cors_origins_env.split(",") if o.strip()]
 
 app = FastAPI(
