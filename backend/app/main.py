@@ -22,7 +22,7 @@ from app.api.routes import health, predict
 # e.g. CORS_ORIGINS="https://burnoutlens.example.com"
 _cors_origins_env = os.environ.get(
     "CORS_ORIGINS",
-    "http://localhost:5173,http://68.210.99.220",
+    "http://localhost:5173,http://68.210.99.220,http://burnoutlens.tech",
 )
 CORS_ORIGINS = [o.strip() for o in _cors_origins_env.split(",") if o.strip()]
 

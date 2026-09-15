@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      CORS_ORIGINS: "http://68.210.99.220"
+      CORS_ORIGINS: "http://68.210.99.220,http://burnoutlens.tech"
     restart: unless-stopped
 
   # ── Frontend: React SPA served by nginx ────────────────────────────────
