@@ -4,16 +4,16 @@ services:
   backend:
     image: elgendy2003/burnout-lens-backend:latest
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
-      CORS_ORIGINS: "http://68.210.99.220,http://burnoutlens.tech"
+      CORS_ORIGINS: "http://68.210.99.220,http://burnoutlens.tech,https://burnoutlens.tech"
     restart: unless-stopped
 
   # ── Frontend: React SPA served by nginx ────────────────────────────────
   frontend:
     image: elgendy2003/burnout-lens-frontend:latest
     ports:
-      - "80:80"
+      - "127.0.0.1:8080:80"
     depends_on:
       - backend
     restart: unless-stopped
