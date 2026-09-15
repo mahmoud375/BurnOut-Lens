@@ -237,6 +237,12 @@ flowchart TD
         B5[docker-build-check]
     end
 
+    B -.->|runs| B1
+    B -.->|runs| B2
+    B -.->|runs| B3
+    B -.->|runs| B4
+    B -.->|runs| B5
+
     subgraph CD ["CD Pipeline (.github/workflows/cd.yml)"]
         D --> D1[docker-push: Build & Push Images]
         D1 --> D2[Deploy via SSH Action]
@@ -265,6 +271,9 @@ flowchart TD
             NX -- "location /" --> C_FE
         end
     end
+
+    R1 -->|"pulled directly"| S2
+    R2 -->|"pulled directly"| S2
 
     Internet([Client Browser]) -->|HTTPS: burnoutlens.tech| NX
 ```
