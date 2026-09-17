@@ -27,7 +27,7 @@ services:
         # service name — the browser runs outside the Docker network.
         VITE_API_BASE_URL: "http://localhost:8000"
     ports:
-      - "80:80"
+      - "80:8080"
     depends_on:
       - backend
     restart: unless-stopped

@@ -1,128 +1,206 @@
-/* ResultPanel styles */
+/* ResultPanel styles — Integrated Biosciences Design System (Enhanced Contrast & Saturation) */
 
 .result-panel {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.15rem; /* Generous breathing room between Score box and Explanation */
+  height: 100%;
+  flex: 1;
+  justify-content: space-between;
 }
 
-/* Score card */
+/* Score Card: Clean, border-delimited container with airy padding */
 .result-panel__score-card {
-  border: 2px solid;
-  border-radius: 10px;
-  padding: 1.25rem 1.5rem;
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-lichen);
+  border-radius: 14px;
+  padding: 1.15rem 1.25rem;
   text-align: center;
+  box-shadow: none; /* Flat elevation */
+  flex-shrink: 0;
 }
 
+/* Score number: large Aspekta 400 */
 .result-panel__score-number {
+  font-family: var(--font-display);
   font-size: 3rem;
-  font-weight: 800;
+  font-weight: 400; /* Strictly 400 weight per spec */
   line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--color-abyssal-ink);
 }
 
 .result-panel__score-denom {
-  font-size: 1.4rem;
-  font-weight: 500;
-  opacity: 0.7;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-graphite);
+  letter-spacing: -0.02em;
 }
 
+/* Pill badge: 9999px radius with rich border and tone */
 .result-panel__level-badge {
   display: inline-block;
-  margin-top: 0.6rem;
-  padding: 0.3rem 1.2rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  margin-top: 0.45rem;
+  padding: 0.2rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-lichen);
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 500; /* Crisp visual weight */
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  box-shadow: none;
 }
 
+.level-badge--low {
+  background-color: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #047857;
+}
+
+.level-badge--moderate {
+  background-color: #fffbeb;
+  border-color: #fcd34d;
+  color: #b45309;
+}
+
+.level-badge--high {
+  background-color: #fff7ed;
+  border-color: #fdba74;
+  color: #c2410c;
+}
+
+.level-badge--severe {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+/* Base value */
 .result-panel__base-value {
-  margin-top: 0.6rem;
-  font-size: 0.78rem;
-  color: #777;
+  margin-top: 0.45rem;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.725rem;
+  color: var(--color-graphite);
 }
 
-/* Explanation */
+/* Explanation Section */
+.result-panel__explanation {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  justify-content: space-between;
+}
+
 .result-panel__section-title {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400; /* Strictly 400 weight */
+  letter-spacing: -0.02em;
+  color: var(--color-abyssal-ink);
+  margin-bottom: 0.15rem;
+  line-height: 1.2;
 }
 
 .result-panel__section-subtitle {
-  font-size: 0.8rem;
-  color: #777;
-  margin-bottom: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.775rem;
+  font-weight: 400;
+  color: var(--color-graphite);
+  margin-bottom: 0.65rem;
+  line-height: 1.3;
 }
 
-/* Contributions list */
+/* Contributions List */
 .contributions-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  justify-content: space-between;
+  flex: 1;
+  gap: 0.6rem;
+}
+
+.contribution-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .contribution-item__header {
   display: grid;
   grid-template-columns: 1fr auto auto auto;
-  gap: 0.4rem;
+  gap: 0.5rem;
   align-items: baseline;
-  font-size: 0.82rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.775rem;
+  margin-bottom: 0.1rem;
 }
 
 .contribution-item__name {
-  font-weight: 600;
-  color: #222;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--color-abyssal-ink);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 .contribution-item__value {
-  color: #555;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--color-graphite);
+  font-size: 0.75rem;
 }
 
 .contribution-item__direction {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500; /* Crisp directional weight */
+  letter-spacing: 0.02em;
 }
 
 .contribution-item__direction--increases {
-  color: #c62828;
+  color: #dc2626; /* Punchy risk red */
 }
 
 .contribution-item__direction--decreases {
-  color: #2e7d32;
+  color: #059669; /* Crisp biotech emerald */
 }
 
 .contribution-item__shap {
-  font-variant-numeric: tabular-nums;
-  font-size: 0.78rem;
-  color: #777;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--color-graphite);
+  text-align: right;
+  min-width: 4.5ch;
 }
 
-/* Horizontal bar track */
+/* Horizontal clean bars (height: 4.5px, radius: 2.5px) */
 .contribution-item__bar-track {
-  height: 6px;
-  background: #f0f0f0;
-  border-radius: 4px;
+  height: 4.5px;
+  background-color: #edebe6;
+  border: 1px solid #dcddd3;
+  border-radius: 2.5px;
   overflow: hidden;
 }
 
 .contribution-item__bar {
   height: 100%;
-  border-radius: 4px;
-  transition: width 0.4s ease;
+  border-radius: 2.5px;
+  transition: width 0.35s ease;
 }
 
-.contribution-item__bar--increases {
-  background: #ef5350;
-}
-
+/* Protective factors (decreases): punchy biotech emerald #10b981 */
 .contribution-item__bar--decreases {
-  background: #4caf50;
+  background-color: var(--color-protective);
+}
+
+/* Risk factors (increases): bold, distinct risk red #ef4444 */
+.contribution-item__bar--increases {
+  background-color: var(--color-risk);
 }

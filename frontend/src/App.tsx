@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AmbientBackground } from "./components/AmbientBackground";
 import { BurnoutForm } from "./components/BurnoutForm";
 import { ResultPanel } from "./components/ResultPanel";
 import { getBurnoutPrediction } from "./api/predict";
@@ -26,8 +27,9 @@ export default function App() {
 
   return (
     <div className="app">
+      <AmbientBackground />
       <header className="app-header">
-        <h1 className="app-title">🔥 BurnOut Lens</h1>
+        <h1 className="app-title">BurnOut Lens</h1>
         <p className="app-subtitle">
           Predict employee burnout risk and understand what's driving it —
           powered by XGBoost + SHAP explanations.
@@ -54,7 +56,9 @@ export default function App() {
           {result && !loading && <ResultPanel result={result} />}
           {!result && !loading && !error && (
             <div className="app-placeholder">
-              <p>Adjust the sliders and click <strong>Predict burnout risk</strong> to see your result.</p>
+              <p>
+                Adjust the sliders and click <strong>Predict burnout risk</strong> to see your result.
+              </p>
             </div>
           )}
         </section>

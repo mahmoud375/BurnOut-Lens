@@ -12,7 +12,7 @@ services:
   frontend:
     image: elgendy2003/burnout-lens-frontend:latest
     ports:
-      - "127.0.0.1:8080:80"
+      - "127.0.0.1:8080:8080"
     depends_on:
       - backend
     restart: unless-stopped

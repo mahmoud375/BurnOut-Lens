@@ -1,1 +1,59 @@
-/* Global reset included by main.tsx */
+/* Integrated Biosciences Design System Tokens & Base Reset */
+
+:root {
+  /* Color Palette */
+  --color-bone-white: #f7f7f5;
+  --color-paper: #ffffff;
+  --color-abyssal-ink: #222f30;
+  --color-graphite: #374151; /* Contrast boost from #4d5757 for sharp secondary text */
+  --color-lichen: #c9cbbe;
+  --color-bioluminescent-lime: #cef79e; /* Ambient background micro-particles */
+  --color-protective: #10b981; /* Punchy emerald green for protective factors */
+  --color-risk: #ef4444; /* Bold, distinct risk red for increases */
+  --color-coral: #ef4444;
+
+  /* Typography */
+  --font-display: "Aspekta", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden; /* Zero page-level scrolling */
+}
+
+body {
+  font-family: var(--font-display);
+  font-weight: 400;
+  background-color: var(--color-bone-white);
+  color: var(--color-abyssal-ink);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 768px), (max-height: 680px) {
+  html,
+  body {
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+  }
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}

@@ -53,7 +53,21 @@ RUN uv sync \
 # (expensive) dependency layer.
 COPY backend/app/ /app/backend/app/
 
+# ── Non-root user ─────────────────────────────────────────────────────────
+# Create a dedicated system user so the container never runs as root.
+# MPLCONFIGDIR: matplotlib (imported transitively by SHAP) needs a writable
+# config directory.  Default (~/.config/matplotlib) doesn't exist for a
+# system user with no home dir, so we point it at /tmp/mpl.
+RUN addgroup --system appuser && \
+    adduser --system --ingroup appuser --no-create-home appuser && \
+    mkdir -p /tmp/mpl && \
+    chown -R appuser:appuser /app /tmp/mpl
+
+ENV MPLCONFIGDIR=/tmp/mpl
+
 WORKDIR /app/backend
+
+USER appuser
 
 EXPOSE 8000
 

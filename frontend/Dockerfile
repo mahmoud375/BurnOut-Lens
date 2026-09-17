@@ -28,20 +28,31 @@ ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 COPY . .
 RUN npm run build
 
-# ── Stage 2: serve ────────────────────────────────────────────────────────
+# ── Stage 2: serve (non-root) ─────────────────────────────────────────────
+# The official nginx:alpine image ships with a built-in 'nginx' user.
+# To run as non-root we: (1) listen on unprivileged port 8080 instead of 80,
+# (2) chown the dirs nginx needs to write (cache, logs, pid), (3) move the
+# PID file to /tmp so nginx can create it without root.
 FROM nginx:1.27-alpine AS runner
 
-# Remove default nginx static content
-RUN rm -rf /usr/share/nginx/html/*
+# Give the nginx user ownership of directories it needs at runtime
+RUN rm -rf /usr/share/nginx/html/* && \
+    chown -R nginx:nginx /var/cache/nginx /var/log/nginx && \
+    touch /tmp/nginx.pid && chown nginx:nginx /tmp/nginx.pid
+
+# Patch the main nginx.conf: PID file → /tmp (writable by nginx user)
+RUN sed -i 's|/run/nginx.pid|/tmp/nginx.pid|' /etc/nginx/nginx.conf
 
 # Copy the built app from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder --chown=nginx:nginx /app/dist /usr/share/nginx/html
 
 # nginx config: serve index.html as fallback for SPA routes
 # (not strictly needed now since there are no client-side routes, but
 #  correct practice and costs nothing — prevents 404 on direct URL access)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --chown=nginx:nginx nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+USER nginx
+
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]

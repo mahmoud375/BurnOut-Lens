@@ -6,12 +6,12 @@ interface Props {
   result: BurnoutResponse;
 }
 
-// Color palette per severity level — simple, no theming system needed
-const LEVEL_COLORS: Record<BurnoutLevel, { bg: string; text: string; border: string }> = {
-  Low:      { bg: "#e8f5e9", text: "#2e7d32", border: "#4caf50" },
-  Moderate: { bg: "#fff8e1", text: "#f57f17", border: "#ffb300" },
-  High:     { bg: "#fff3e0", text: "#e65100", border: "#ff6d00" },
-  Severe:   { bg: "#ffebee", text: "#b71c1c", border: "#f44336" },
+// Subtle border/tone mapping per severity level matching Integrated Biosciences
+const LEVEL_BADGE_CLASS: Record<BurnoutLevel, string> = {
+  Low: "level-badge--low",
+  Moderate: "level-badge--moderate",
+  High: "level-badge--high",
+  Severe: "level-badge--severe",
 };
 
 // Max absolute SHAP value among contributions — used to normalise bar widths
@@ -21,27 +21,20 @@ function maxAbsShap(contributions: BurnoutResponse["contributions"]): number {
 
 export function ResultPanel({ result }: Props) {
   const { burnout_score, burnout_level, base_value, contributions } = result;
-  const colors = LEVEL_COLORS[burnout_level];
   const maxShap = maxAbsShap(contributions);
 
   return (
     <div className="result-panel">
-      {/* Score header */}
-      <div
-        className="result-panel__score-card"
-        style={{
-          backgroundColor: colors.bg,
-          borderColor: colors.border,
-        }}
-      >
-        <div className="result-panel__score-number" style={{ color: colors.text }}>
-          {burnout_score.toFixed(1)}<span className="result-panel__score-denom"> / 10</span>
+      {/* Score card: Clean, border-delimited container (1px solid #c9cbbe, radius 16px) */}
+      <div className="result-panel__score-card">
+        <div className="result-panel__score-number">
+          {burnout_score.toFixed(1)}
+          <span className="result-panel__score-denom"> / 10</span>
         </div>
-        <div
-          className="result-panel__level-badge"
-          style={{ backgroundColor: colors.border, color: "#fff" }}
-        >
-          {burnout_level}
+        <div>
+          <span className={`result-panel__level-badge ${LEVEL_BADGE_CLASS[burnout_level]}`}>
+            {burnout_level} risk
+          </span>
         </div>
         <div className="result-panel__base-value">
           Model baseline: {base_value.toFixed(2)}

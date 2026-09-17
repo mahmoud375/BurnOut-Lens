@@ -1,85 +1,230 @@
-/* BurnoutForm styles */
+/* BurnoutForm styles — Integrated Biosciences Design System (Optimized INP & 60fps Drag) */
 
 .burnout-form {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 0.45rem;
+  flex: 1;
+  justify-content: space-between;
 }
 
+/* Form Section Header */
+.form-header {
+  margin-bottom: 0.1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--color-lichen);
+}
+
+.form-title {
+  font-family: var(--font-display);
+  font-weight: 400; /* Strictly 400 weight per spec */
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  color: var(--color-abyssal-ink);
+  line-height: 1.15;
+}
+
+.form-subtitle {
+  margin-top: 0.1rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-graphite);
+  line-height: 1.3;
+}
+
+/* Form Fields */
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.15rem;
+  width: 100%;
 }
 
-.form-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #333;
+.form-field__label-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  width: 100%;
 }
 
+.form-field label {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.775rem;
+  color: var(--color-abyssal-ink);
+  letter-spacing: -0.01em;
+}
+
+/* Monospace value display: layout/style containment eliminates DOM reflow */
 .form-field__value {
-  font-weight: 700;
-  color: #1565c0;
-  font-size: 0.95rem;
-  min-width: 2.5ch;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--color-abyssal-ink);
+  font-size: 0.8rem;
+  min-width: 3ch;
   text-align: right;
+  contain: layout style;
 }
 
-.form-field select,
-.form-field input[type="range"] {
+/* Select Dropdown */
+.select-wrapper {
+  position: relative;
   width: 100%;
 }
 
 .form-field select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
+  width: 100%;
+  padding: 0.35rem 2rem 0.35rem 0.65rem;
+  border: 1px solid var(--color-lichen);
   border-radius: 6px;
-  font-size: 0.9rem;
-  background: #fafafa;
+  background-color: var(--color-bone-white);
+  color: var(--color-abyssal-ink);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.775rem;
   cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234d5757' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.65rem center;
+  transition: border-color 0.15s ease;
 }
 
+.form-field select:hover,
 .form-field select:focus {
-  outline: 2px solid #1565c0;
-  outline-offset: 1px;
+  border-color: var(--color-abyssal-ink);
 }
 
+/* Range Slider — touch-action: none eliminates pointer event presentation delay */
 .form-field input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--color-lichen);
+  border-radius: 1px;
+  outline: none;
+  margin: 0.2rem 0 0.1rem;
   cursor: pointer;
-  accent-color: #1565c0;
-  height: 4px;
+  display: block;
+  touch-action: none; /* Prevents scroll contention and pointer presentation lag */
 }
 
+/* WebKit slider track */
+.form-field input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  background: var(--color-lichen);
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+/* WebKit slider thumb */
+.form-field input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-abyssal-ink);
+  border: 1.5px solid var(--color-abyssal-ink);
+  cursor: pointer;
+  margin-top: -5px; /* center on 2px track */
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-field input[type="range"]::-webkit-slider-thumb:hover,
+.form-field input[type="range"]:focus::-webkit-slider-thumb {
+  border-color: var(--color-bioluminescent-lime);
+  box-shadow: 0 0 0 2px var(--color-bioluminescent-lime);
+}
+
+/* Disable transitions while actively dragging thumb to guarantee 60fps rendering */
+.form-field input[type="range"]:active::-webkit-slider-thumb {
+  transition: none;
+  border-color: var(--color-bioluminescent-lime);
+  box-shadow: 0 0 0 2px var(--color-bioluminescent-lime);
+}
+
+/* Firefox slider track */
+.form-field input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  background: var(--color-lichen);
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+/* Firefox slider thumb */
+.form-field input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-abyssal-ink);
+  border: 1.5px solid var(--color-abyssal-ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-field input[type="range"]::-moz-range-thumb:hover,
+.form-field input[type="range"]:focus::-moz-range-thumb {
+  border-color: var(--color-bioluminescent-lime);
+  box-shadow: 0 0 0 2px var(--color-bioluminescent-lime);
+}
+
+.form-field input[type="range"]:active::-moz-range-thumb {
+  transition: none;
+  border-color: var(--color-bioluminescent-lime);
+  box-shadow: 0 0 0 2px var(--color-bioluminescent-lime);
+}
+
+.form-field input[type="range"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Min/Max sub-labels */
 .form-field__range-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 0.72rem;
-  color: #999;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.65rem;
+  color: var(--color-graphite);
+  margin-top: -0.05rem;
 }
 
-/* Submit button */
+/* Action Button */
 .submit-btn {
-  margin-top: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  background: #1565c0;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  margin-top: 0.4rem;
+  padding: 0.55rem 1rem;
+  background-color: var(--color-abyssal-ink);
+  color: #ffffff;
+  border: 1px solid var(--color-abyssal-ink);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  width: 100%;
+  box-shadow: none; /* Flat elevation */
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #0d47a1;
+  background-color: #1a2526;
+  border-color: var(--color-bioluminescent-lime);
+}
+
+.submit-btn:active:not(:disabled) {
+  background-color: #121b1c;
 }
 
 .submit-btn:disabled {
-  background: #90caf9;
+  opacity: 0.5;
   cursor: not-allowed;
 }
