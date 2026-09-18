@@ -1,4 +1,4 @@
-/* BurnoutForm styles — Integrated Biosciences Design System (Optimized INP & 60fps Drag) */
+/* BurnoutForm styles — Integrated Biosciences Design System (Optimized Hitbox & 60fps Drag) */
 
 .burnout-form {
   display: flex;
@@ -98,22 +98,21 @@
   border-color: var(--color-abyssal-ink);
 }
 
-/* Range Slider — touch-action: none eliminates pointer event presentation delay */
+/* Range Slider — Expanded invisible hit-area (26px) with ultra-thin 2px visual track */
 .form-field input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 2px;
-  background: var(--color-lichen);
-  border-radius: 1px;
+  height: 26px; /* Invisible hit-area height for effortless click & touch catch */
+  background: transparent;
   outline: none;
-  margin: 0.2rem 0 0.1rem;
+  margin: -2px 0;
   cursor: pointer;
   display: block;
-  touch-action: none; /* Prevents scroll contention and pointer presentation lag */
+  touch-action: pan-y; /* Smooth page scroll on vertical swipe, immediate drag on horizontal */
 }
 
-/* WebKit slider track */
+/* Visible track stays razor-thin and clean (2px) */
 .form-field input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 2px;
@@ -122,18 +121,18 @@
   cursor: pointer;
 }
 
-/* WebKit slider thumb */
+/* Elegant thumb (14px) with grab cursor and centered alignment */
 .form-field input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--color-abyssal-ink);
   border: 1.5px solid var(--color-abyssal-ink);
-  cursor: pointer;
-  margin-top: -5px; /* center on 2px track */
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: grab;
+  margin-top: -6px; /* (2px track - 14px thumb) / 2 = -6px perfectly centered */
+  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .form-field input[type="range"]::-webkit-slider-thumb:hover,
@@ -142,11 +141,12 @@
   box-shadow: 0 0 0 2px var(--color-bioluminescent-lime);
 }
 
-/* Disable transitions while actively dragging thumb to guarantee 60fps rendering */
 .form-field input[type="range"]:active::-webkit-slider-thumb {
-  transition: none;
+  cursor: grabbing;
+  transform: scale(1.15); /* Subtle visual feedback during active drag */
   border-color: var(--color-bioluminescent-lime);
   box-shadow: 0 0 0 2px var(--color-bioluminescent-lime);
+  transition: none; /* Instant 60fps response during active drag */
 }
 
 /* Firefox slider track */
@@ -160,13 +160,13 @@
 
 /* Firefox slider thumb */
 .form-field input[type="range"]::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--color-abyssal-ink);
   border: 1.5px solid var(--color-abyssal-ink);
-  cursor: pointer;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: grab;
+  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .form-field input[type="range"]::-moz-range-thumb:hover,
@@ -176,9 +176,11 @@
 }
 
 .form-field input[type="range"]:active::-moz-range-thumb {
-  transition: none;
+  cursor: grabbing;
+  transform: scale(1.15);
   border-color: var(--color-bioluminescent-lime);
   box-shadow: 0 0 0 2px var(--color-bioluminescent-lime);
+  transition: none;
 }
 
 .form-field input[type="range"]:disabled {
