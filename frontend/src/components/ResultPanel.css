@@ -18,6 +18,7 @@
   text-align: center;
   box-shadow: none; /* Flat elevation */
   flex-shrink: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Score number: large Aspekta 400 */
@@ -28,6 +29,7 @@
   line-height: 1;
   letter-spacing: -0.05em;
   color: var(--color-abyssal-ink);
+  transition: color 0.2s ease;
 }
 
 .result-panel__score-denom {
@@ -36,6 +38,7 @@
   font-weight: 400;
   color: var(--color-graphite);
   letter-spacing: -0.02em;
+  transition: color 0.2s ease;
 }
 
 /* Pill badge: 9999px radius with rich border and tone */
@@ -51,30 +54,31 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   box-shadow: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .level-badge--low {
-  background-color: #ecfdf5;
-  border-color: #6ee7b7;
-  color: #047857;
+  background-color: var(--badge-low-bg, #ecfdf5);
+  border-color: var(--badge-low-border, #6ee7b7);
+  color: var(--badge-low-text, #047857);
 }
 
 .level-badge--moderate {
-  background-color: #fffbeb;
-  border-color: #fcd34d;
-  color: #b45309;
+  background-color: var(--badge-moderate-bg, #fffbeb);
+  border-color: var(--badge-moderate-border, #fcd34d);
+  color: var(--badge-moderate-text, #b45309);
 }
 
 .level-badge--high {
-  background-color: #fff7ed;
-  border-color: #fdba74;
-  color: #c2410c;
+  background-color: var(--badge-high-bg, #fff7ed);
+  border-color: var(--badge-high-border, #fdba74);
+  color: var(--badge-high-text, #c2410c);
 }
 
 .level-badge--severe {
-  background-color: #fef2f2;
-  border-color: #fca5a5;
-  color: #b91c1c;
+  background-color: var(--badge-severe-bg, #fceeed);
+  border-color: var(--badge-severe-border, var(--color-coral));
+  color: var(--badge-severe-text, #782115);
 }
 
 /* Base value */
@@ -84,6 +88,7 @@
   font-weight: 400;
   font-size: 0.725rem;
   color: var(--color-graphite);
+  transition: color 0.2s ease;
 }
 
 /* Explanation Section */
@@ -103,6 +108,7 @@
   color: var(--color-abyssal-ink);
   margin-bottom: 0.15rem;
   line-height: 1.2;
+  transition: color 0.2s ease;
 }
 
 .result-panel__section-subtitle {
@@ -112,6 +118,7 @@
   color: var(--color-graphite);
   margin-bottom: 0.65rem;
   line-height: 1.3;
+  transition: color 0.2s ease;
 }
 
 /* Contributions List */
@@ -147,6 +154,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: -0.01em;
+  transition: color 0.2s ease;
 }
 
 .contribution-item__value {
@@ -154,6 +162,7 @@
   font-weight: 400;
   color: var(--color-graphite);
   font-size: 0.75rem;
+  transition: color 0.2s ease;
 }
 
 .contribution-item__direction {
@@ -161,14 +170,15 @@
   font-size: 0.7rem;
   font-weight: 500; /* Crisp directional weight */
   letter-spacing: 0.02em;
+  transition: color 0.2s ease;
 }
 
 .contribution-item__direction--increases {
-  color: #dc2626; /* Punchy risk red */
+  color: var(--color-risk-text, var(--color-coral));
 }
 
 .contribution-item__direction--decreases {
-  color: #059669; /* Crisp biotech emerald */
+  color: var(--color-protective-text, #386641);
 }
 
 .contribution-item__shap {
@@ -178,29 +188,31 @@
   color: var(--color-graphite);
   text-align: right;
   min-width: 4.5ch;
+  transition: color 0.2s ease;
 }
 
 /* Horizontal clean bars (height: 4.5px, radius: 2.5px) */
 .contribution-item__bar-track {
   height: 4.5px;
-  background-color: #edebe6;
-  border: 1px solid #dcddd3;
+  background-color: var(--color-bar-track-bg, var(--color-bone-white));
+  border: 1px solid var(--color-bar-track-border, #e2e4d9);
   border-radius: 2.5px;
   overflow: hidden;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .contribution-item__bar {
   height: 100%;
   border-radius: 2.5px;
-  transition: width 0.35s ease;
+  transition: width 0.35s ease, background-color 0.2s ease;
 }
 
-/* Protective factors (decreases): punchy biotech emerald #10b981 */
+/* Protective factors (decreases): punchy biotech emerald #10b981 / #34d399 */
 .contribution-item__bar--decreases {
   background-color: var(--color-protective);
 }
 
-/* Risk factors (increases): bold, distinct risk red #ef4444 */
+/* Risk factors (increases): bold, distinct risk red #ef4444 / #f87171 */
 .contribution-item__bar--increases {
   background-color: var(--color-risk);
 }

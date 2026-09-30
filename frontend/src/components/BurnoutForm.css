@@ -13,6 +13,7 @@
   margin-bottom: 0.1rem;
   padding-bottom: 0.35rem;
   border-bottom: 1px solid var(--color-lichen);
+  transition: border-color 0.2s ease;
 }
 
 .form-title {
@@ -22,6 +23,7 @@
   letter-spacing: -0.02em;
   color: var(--color-abyssal-ink);
   line-height: 1.15;
+  transition: color 0.2s ease;
 }
 
 .form-subtitle {
@@ -31,6 +33,7 @@
   font-size: 0.75rem;
   color: var(--color-graphite);
   line-height: 1.3;
+  transition: color 0.2s ease;
 }
 
 /* Form Fields */
@@ -54,6 +57,7 @@
   font-size: 0.775rem;
   color: var(--color-abyssal-ink);
   letter-spacing: -0.01em;
+  transition: color 0.2s ease;
 }
 
 /* Monospace value display: layout/style containment eliminates DOM reflow */
@@ -65,6 +69,7 @@
   min-width: 3ch;
   text-align: right;
   contain: layout style;
+  transition: color 0.2s ease;
 }
 
 /* Select Dropdown */
@@ -78,7 +83,7 @@
   padding: 0.35rem 2rem 0.35rem 0.65rem;
   border: 1px solid var(--color-lichen);
   border-radius: 6px;
-  background-color: var(--color-bone-white);
+  background-color: var(--color-select-bg, var(--color-bone-white));
   color: var(--color-abyssal-ink);
   font-family: var(--font-mono);
   font-weight: 400;
@@ -90,7 +95,11 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234d5757' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.65rem center;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+[data-theme="dark"] .form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
 
 .form-field select:hover,
@@ -116,9 +125,10 @@
 .form-field input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 2px;
-  background: var(--color-lichen);
+  background: var(--color-track-bg, var(--color-lichen));
   border-radius: 1px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 /* Elegant thumb (14px) with grab cursor and centered alignment */
@@ -128,11 +138,11 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--color-abyssal-ink);
-  border: 1.5px solid var(--color-abyssal-ink);
+  background: var(--color-thumb-bg, var(--color-abyssal-ink));
+  border: 1.5px solid var(--color-thumb-border, var(--color-abyssal-ink));
   cursor: grab;
   margin-top: -6px; /* (2px track - 14px thumb) / 2 = -6px perfectly centered */
-  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
 }
 
 .form-field input[type="range"]::-webkit-slider-thumb:hover,
@@ -153,9 +163,10 @@
 .form-field input[type="range"]::-moz-range-track {
   width: 100%;
   height: 2px;
-  background: var(--color-lichen);
+  background: var(--color-track-bg, var(--color-lichen));
   border-radius: 1px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 /* Firefox slider thumb */
@@ -163,10 +174,10 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--color-abyssal-ink);
-  border: 1.5px solid var(--color-abyssal-ink);
+  background: var(--color-thumb-bg, var(--color-abyssal-ink));
+  border: 1.5px solid var(--color-thumb-border, var(--color-abyssal-ink));
   cursor: grab;
-  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
 }
 
 .form-field input[type="range"]::-moz-range-thumb:hover,
@@ -197,33 +208,38 @@
   font-size: 0.65rem;
   color: var(--color-graphite);
   margin-top: -0.05rem;
+  transition: color 0.2s ease;
 }
 
 /* Action Button */
 .submit-btn {
   margin-top: 0.4rem;
   padding: 0.55rem 1rem;
-  background-color: var(--color-abyssal-ink);
-  color: #ffffff;
-  border: 1px solid var(--color-abyssal-ink);
+  background-color: var(--color-btn-bg, var(--color-abyssal-ink));
+  color: var(--color-btn-text, #ffffff);
+  border: 1px solid var(--color-btn-border, var(--color-abyssal-ink));
   border-radius: 6px;
   font-family: var(--font-mono);
   font-size: 0.825rem;
   font-weight: 400;
   letter-spacing: 0.03em;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   width: 100%;
   box-shadow: none; /* Flat elevation */
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-color: #1a2526;
+  background-color: var(--color-btn-hover-bg, #1a2526);
   border-color: var(--color-bioluminescent-lime);
 }
 
 .submit-btn:active:not(:disabled) {
   background-color: #121b1c;
+}
+
+[data-theme="dark"] .submit-btn:active:not(:disabled) {
+  background-color: #e5e7eb;
 }
 
 .submit-btn:disabled {
