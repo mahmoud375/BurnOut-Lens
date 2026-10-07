@@ -279,6 +279,7 @@ Following a security and performance audit of the production deployment, the fol
 | **Rate limiting** | Nginx `limit_req` on `/api/` — 10 req/min per IP, burst of 5 — protects the CPU-bound `/predict` endpoint from abuse |
 | **Container resource limits** | `mem_limit`/`cpus` caps in `docker-compose.prod.yml` (backend: 400MB/0.5 CPU, frontend: 100MB/0.3 CPU) |
 | **Security headers** | HSTS, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, and a restrictive CSP set at the Nginx layer |
+| **Request size limit** | Nginx `client_max_body_size` set to 100k on `/predict` — oversized payloads are rejected (413) before reaching the backend |
 | **Firewall** | `ufw` enabled with a default-deny policy; only ports `22`, `80`, `443` allowed |
 | **fail2ban** | SSH brute-force protection — 5 failed attempts within 10 minutes triggers a 1-hour IP ban |
 | **Log rotation** | Docker's `json-file` driver capped at 10MB × 3 files per container |
